@@ -14,22 +14,17 @@ type Sleeper interface {
 const finalWord = "Go!"
 const countdownStart = 3
 
-type SpySleeper struct {
-	Calls int
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(duration time.Duration)
 }
 
-func (s *SpySleeper) Sleep() {
-	s.Calls++
-}
-
-type DefaultSleeper struct{}
-
-func (d *DefaultSleeper) Sleep() {
-	time.Sleep(1 * time.Second)
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
+	sleeper := &ConfigurableSleeper{}
 	Countdown(os.Stdout, sleeper)
 }
 
