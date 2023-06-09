@@ -2,21 +2,21 @@ package sync
 
 import "sync"
 
-type counter struct {
+type Counter struct {
 	mu    sync.Mutex
 	value int
 }
 
-func NewCounter() *counter {
-	return &counter{}
+func NewCounter() *Counter {
+	return &Counter{}
 }
 
-func (c *counter) Inc() {
+func (c *Counter) Inc() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.value++
 }
 
-func (c *counter) Value() int {
+func (c *Counter) Value() int {
 	return c.value
 }
